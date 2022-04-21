@@ -91,7 +91,9 @@ Ensure you have selected `Python 3.7` under *Runtime* to avoid an error.
 
 ![Module 3 - Paste code](/images/3-photos-chroma5.png)
 
-9. Select **Deploy** in the *Code source* card to save the changes.
+9. Complete the sections marked as `#TODO implement` to upload and download objects from the correspondent **S3** buckets. *Ask for hints if you get stuck*
+
+10. Select **Deploy** in the *Code source* card to save the changes.
 
 ### Adding environment variables
 

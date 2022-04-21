@@ -15,12 +15,33 @@ const iotdata = new AWS.IotData({ endpoint: process.env.IOT_DATA_ENDPOINT })
 
 // Commits the latest message to DynamoDB
 const saveToDDB = async function (message) {
-// TO DO - use DDB_TABLE_NAME as environment variable to refer to the DynamoDB table
+    try  {
+        await ddb.put({
+            TableName: process.env.DDB_TABLE_NAME,
+            Item: {
+                'partitionKey': 'config',
+                'sortKey': 'waittimes',
+                'message': message
+            }
+        }).promise()
+        console.log('saveToDDB success')
+    } catch (err) {
+        console.error('saveToDDB error: ', err)
+    }
 }
 
 // Publishes the message to the IoT topic
 const iotPublish = async function (topic, message) {
-// TO DO
+    try {
+        await iotdata.publish({
+            topic,
+            qos: 0,
+            payload: JSON.stringify(message)
+        }).promise();
+        console.log('iotPublish success')
+    } catch (err) {
+        console.error('iotPublish error:', err)
+    }
 };
 
 // The handler invoked by Lambda.

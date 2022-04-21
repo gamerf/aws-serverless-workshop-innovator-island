@@ -21,7 +21,11 @@ The second part, you will create a CloudWatch Metrics dashboard that enables Par
 
 1. Go back to your browser tab with Cloud9 running. If you need to re-launch Cloud9, from the AWS Management Console, select **Services** then select **Cloud9** under *Developer Tools*. **Make sure your region is correct.**
 
-2. Deploy the Lambda function by executing the following commands in the Cloud9 terminal:
+2. Complete the code under `~/environment/theme-park-backend/6-eventbridge/1-eventbus/sam-app/publishFunction/app.js` to put messages on the EventBridge bus. *Ask for hints if you get stuck*
+
+![publishFunction-app.js](/images/6-1-publishfunction-app-js.png)
+
+3. Deploy the Lambda function by executing the following commands in the Cloud9 terminal:
 ```
 cd ~/environment/theme-park-backend/6-eventbridge/1-eventbus/sam-app/
 
@@ -29,19 +33,19 @@ sam package --output-template-file packaged.yaml --s3-bucket $s3_deploy_bucket
 
 sam deploy --template-file packaged.yaml --stack-name theme-park-events --capabilities CAPABILITY_IAM
 ```
-3. After the SAM deployment is complete, go to the Lambda console - from the AWS Management Console, select **Services** then select **Lambda** under *Compute*.
+4. After the SAM deployment is complete, go to the Lambda console - from the AWS Management Console, select **Services** then select **Lambda** under *Compute*.
 
-4. Select the Lambda function with the name beginning `theme-park-events-PublishFunction`.
+5. Select the Lambda function with the name beginning `theme-park-events-PublishFunction`.
 
 - This function will be invoked by SNS after you create the trigger in the next section.
 - The code iterates through the list of ride wait times in the incoming SNS message. It creates an event for each ride time and publishes to the default bus in EventBridge. For these events, the DetailType is `waitTimes`.
 - It also publishes a single summary event to the EventBridge default bus using the DetailType `waitTimesSummary`.
 
-5. Make sure the *Designer* section is expanded. Select **+ Add trigger**. In the *Trigger configuration* dropdown, choose **SNS**. In the SNS topic selector, select the topic beginning with `ride-times`:
+6. Make sure the *Designer* section is expanded. Select **+ Add trigger**. In the *Trigger configuration* dropdown, choose **SNS**. In the SNS topic selector, select the topic beginning with `ride-times`:
 
 ![Add SNS trigger](/images/2-realtime-lambda2b.png)
 
-6. Choose *Add*.
+7. Choose *Add*.
 
 The Lambda function is now receiving events from the SNS trigger, and publishing to EventBridge.
 

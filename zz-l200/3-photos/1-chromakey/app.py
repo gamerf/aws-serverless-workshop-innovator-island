@@ -21,7 +21,17 @@ def upload_file(file_name, bucket, object_name=None):
     :return: True if file was uploaded, else False
     """
 
-    #TODO implement
+    # If S3 object_name was not specified, use file_name
+    if object_name is None:
+        object_name = file_name
+
+    # Upload the file
+    s3_client = s3
+    try:
+        response = s3_client.upload_file(file_name, bucket, object_name)
+    except botocore.exceptions.ClientError as e:
+        logging.error(e)
+        return False
     return True
 
 def scale_image(image):
@@ -60,7 +70,7 @@ def lambda_handler(event, context):
     logger.info('Local output file: {}'.format(local_output_temp_file))
 
     # get the object
-    #TODO implement
+    s3.download_file(input_bucket_name, file_key, local_input_temp_file)
 
     # HSV range
     

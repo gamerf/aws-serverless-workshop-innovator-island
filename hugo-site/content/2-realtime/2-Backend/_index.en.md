@@ -78,7 +78,11 @@ Lambda functions that use arm64 architecture (AWS Graviton2 processor) can achie
 
 9. Go back to the browser tab with the Lambda console. In the *Code source* card, open the `index.js` file. Paste the file contents in the clipboard into the `index.js` file, overwriting the existing content.
 
-10. Above the *Code source* panel, select **Deploy** to save the changes and deploy the function.
+10. Complete the functions to `saveToDDB` and `iotPublish` which are commented as `TO DO`. *Ask for hints if you get stuck*
+
+![Module 2 - Paste code](../images/2-realtime-lambda3.png)
+
+11. Above the *Code source* panel, select **Deploy** to save the changes and deploy the function.
 
 ![Module 2 - Paste code](../images/2-realtime-lambda4.png)
 

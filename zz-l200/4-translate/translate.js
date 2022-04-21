@@ -49,17 +49,25 @@ const translateText = async (originalText, targetLanguageCode) => {
 const main = async () => {
 
   // Make sure list entered matches allowed language codes
-  //TO DO
+  const listLanguages = targetLanguages.filter(lang => possibleLanguages.includes(lang))
 
-  // Initialize translations array
-  //TO DO
+  const translations = {}
+  translations.en = messages.en
 
   // For each language selected...
-  //TO DO
+  const pArray = listLanguages.map(async function(lang) {
+    const output = {}
     // For each category...
-    //TO DO
+    for (let category in messages.en) {
+      output[category] = {}
       // For each phrases
-      //TO DO
+      for (let phrase in messages.en[category]) {
+        const translation = await translateText(messages.en[category][phrase], lang)
+        output[category][phrase] = translation
+      }
+    }
+    translations[lang] = output
+  })
 
   // Await for all promises to resolve
   await Promise.all(pArray)

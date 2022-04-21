@@ -61,7 +61,11 @@ echo $DELIVERY_STREAM
 ```
 ![Delivery stream variable](/images/5-2-delivery-stream-var.png)
 
-4. Now, build and deploy the SAM application:
+4. Complete the code under `./simulatorFunction/lib/dispatch.js` to put messages on the Kinesis Delivery Stream. *Ask for hints if you get stuck*
+
+![dispatch.js](/images/5-2-dispatch-js.png)
+
+5. Now, build and deploy the SAM application:
 ```
 sam build
 sam package --output-template-file packaged.yaml --s3-bucket $s3_deploy_bucket
@@ -72,20 +76,20 @@ The *parameter-overrides* option allows you to pass parameters into the deployme
 
 This will take a few minutes to deploy - wait for the confirmation message in the console before continuing.
 
-5. Retrieve the name of the deployed Lambda function:
+6. Retrieve the name of the deployed Lambda function:
 
 ```
 aws lambda list-functions | grep theme-park-simulator | grep FunctionName
 ```
 ![Lambda function name](/images/module5-2-simulator-getname.png)
 
-6. Copy the name value to the clipboard (exclude the quotes). Now invoke the Lambda function:
+7. Copy the name value to the clipboard (exclude the quotes). Now invoke the Lambda function:
 ```
 aws lambda invoke --function-name ENTER_FUNCTION_NAME output.txt
 ```
 ![Invoke Lambda function](/images/module5-2-simulator-invoke-lambda.png)
 
-7. The simulator is now running and takes 4-5 minutes to complete. Continue with the workshop without waiting.
+8. The simulator is now running and takes 4-5 minutes to complete. Continue with the workshop without waiting.
 
 ## Observing the output in S3
 

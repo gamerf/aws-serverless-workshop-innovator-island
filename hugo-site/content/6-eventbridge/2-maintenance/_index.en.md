@@ -30,6 +30,10 @@ First, you will consume the ride data events already published by EventBridge fr
 Make sure your region is set to the same region you initially selected for Cloud9.
 {{% /notice %}}
 
+2. Complete the code under `~/environment/theme-park-backend/6-eventbridge/2-maintenance/sam-app/outagesFunction/app.js` to put messages on the EventBridge bus. *Ask for hints if you get stuck*
+
+![outagesFunction-app.js](/images/6-2-outagesfunction-app-js.png)
+
 2. Deploy the Lambda function by executing the following commands in the Cloud9 terminal:
 ```
 cd ~/environment/theme-park-backend/6-eventbridge/2-maintenance/sam-app/
@@ -77,20 +81,28 @@ sam deploy --template-file packaged.yaml --stack-name theme-park-outages --capab
 - Click the *Target* dropdown and select *CloudWatch log group*.
 - Under *Log group*, next to the radio button with named */aws/events/*, enter `theme-park-outages`.
 
-
 ![Create rule](/images/module6-2-eventbridge-2.png)
 
-9. Choose **Next**.
+9. Choose **Add another target**
 
-10. In the *Configure tags* page, choose **Next**.
+10. in the *Target 2* panel:
+- For *Target types*, choose **AWS service**.
+- Click the *Target* dropdown and select *Lambda function*.
+- Under *Function*, select the one starting with `theme-park-outages-PublishFunction-`.
 
-11. In the *Review and create page*, check all the settings match those you have supplied. Choose **Create rule**.
+![Create target2](/images/module6-2-eventbridge-2a.png)
 
-12. Navigate to CloudWatch - from the AWS Management Console, select **Services** then select **CloudWatch** under *Management & Governance*.
+11. Choose **Next**.
 
-13. From the menu on the left, select **Log groups** under the *Logs* category.
+12. In the *Configure tags* page, choose **Next**.
 
-14. Choose the log group called `/aws/events/theme-park-outages`. After a minute or two, a log stream will appear - click to open this stream.
+13. In the *Review and create page*, check all the settings match those you have supplied. Choose **Create rule**.
+
+14. Navigate to CloudWatch - from the AWS Management Console, select **Services** then select **CloudWatch** under *Management & Governance*.
+
+15. From the menu on the left, select **Log groups** under the *Logs* category.
+
+16. Choose the log group called `/aws/events/theme-park-outages`. After a minute or two, a log stream will appear - click to open this stream.
 
 ![CloudWatch Logs](/images/module6-2-cloudwatch-1.png)
 

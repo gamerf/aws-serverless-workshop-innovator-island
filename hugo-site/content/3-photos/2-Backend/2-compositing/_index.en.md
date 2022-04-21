@@ -21,6 +21,8 @@ The AWS SAM template file is a YAML or JSON configuration file. You use the temp
 
 ![template.yaml](../../images/3-photos-composite-yaml.png)
 
+3. Complete the SAM definition for the serverless function, as per below. *Ask for hints if you get stuck*
+
 SAM will read this file and convert this YAML into infrastructure. Some of the important sections for today include:
 
 - **Parameters**: the function needs to know the name of the final bucket, so you can provide this as a parameter to the template.

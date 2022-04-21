@@ -41,7 +41,16 @@ const flushBatch = async () => {
   })
 
   console.log(params)
-  //TODO implementation - put record on Kinesis Firehose
+  try {    
+    const result = await firehose.putRecordBatch(params).promise()
+    if (result.FailedPutCount > 0) {
+      console.log(`Firehose batch sequence ${sequenceId}. Failure: : ${result}`)
+    }
+    sequenceId++
+    batch = []
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 // Exports

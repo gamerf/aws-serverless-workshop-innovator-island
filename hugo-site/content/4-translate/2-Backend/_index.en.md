@@ -38,10 +38,14 @@ AWS_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availabil
 AWS_REGION='us-east-1'
 ```
 
-4. Run the local Node application by running the following commands which will use Amazon Translate to create the translation file:
+4. Complete coding the `main()` function on `translate.js`. *Ask for hints if you get stuck*
+
+![translate.js](../../images/4-translate-translate-js.png)
+
+5. Run the local Node application by running the following commands which will use Amazon Translate to create the translation file:
 
 ```
 node ./translate.js $AWS_REGION
 ```
 
-5. After a few seconds, the function completes and has created a new file in the same directory called ```translations.json```. Click on the file in the left panel of the IDE to inspect the contents. You will see it contains translations of the string resources in the target languages.
+6. After a few seconds, the function completes and has created a new file in the same directory called ```translations.json```. Click on the file in the left panel of the IDE to inspect the contents. You will see it contains translations of the string resources in the target languages.

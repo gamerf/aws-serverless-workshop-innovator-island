@@ -29,15 +29,24 @@ exports.handler = async (event) => {
 
     params.Entries.push({
       // Event envelope fields
-      //TODO Implementation
+      Source: 'themepark.rides',
+      EventBusName: 'default',
+      DetailType: 'waitTimes',
+      Time: new Date(),
   
       // Main event body
-      //TODO Implementation
+      Detail: JSON.stringify({
+        rideId: ride.rideId,
+        inService: ride.inService,
+        wait: ride.wait,
+        lastUpdated: ride.lastUpdated
+      })
     })
     
     // Maximum size of Entries for EventBridge is 10    
     if (params.Entries.length === MAX_ENTRIES) {
-      //TODO Implementation
+      console.log(params)
+      console.log(await eventbridge.putEvents(params).promise())
       params.Entries = []
     }
   }
@@ -49,5 +58,18 @@ exports.handler = async (event) => {
   } 
   
   // Post summary messsage to EventBridge with all contents
-  //TODO Implementation
+  console.log(await eventbridge.putEvents({
+    Entries: [
+      {
+        // Event envelope fields
+        Source: 'themepark.rides',
+        EventBusName: 'default',
+        DetailType: 'waitTimesSummary',
+        Time: new Date(),
+    
+        // Main event body
+        Detail: sns.Message 
+      }
+    ]
+  }).promise())
 }

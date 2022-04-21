@@ -68,16 +68,45 @@ exports.handler = async (event) => {
     console.log('Cache: ', alertCache)
     
     // Randomly select a reason code 
-    //TODO Implementation
+    const reasonIndex = parseInt(Math.random() * selectedAlerts.length)
+    const reason = alerts[reasonIndex]
+    let message = {}
 
     // Check cache for recent failure on this ride
-    //TODO Implementation
+    if (alertCache.hasOwnProperty("rideId")) {
+        if ( (Date.now() - alertCache[rideId].lastAlert) / 1000 < CACHE_TIME )  {
+            message = alertCache[rideId]    
+            console.log('Cache hit: ', message)
+        }
+    }
 
     // Nothing in cache - generate failure    
-    //TODO Implementation
+    if (isEmpty(message)) {
+        alertCache[rideId] = {
+            "rideId": rideId,
+            "lastAlert": Date.now(),
+            "type": reason[1],
+            "description": reason[2],
+            "timeToResolution": event.detail.wait
+        }
+        message = alertCache[rideId]    
+    }
     
     console.log('Message: ', message)
 
     // Publish to EventBridge
-    //TODO Implementation
+    console.log(await eventbridge.putEvents({
+        Entries: [
+          {
+            // Event envelope fields
+            Source: 'themepark.rides',
+            EventBusName: 'default',
+            DetailType: 'outage',
+            Time: new Date(),
+        
+            // Main event body
+            Detail: JSON.stringify(message)
+          }
+        ]
+    }).promise())    
 }
