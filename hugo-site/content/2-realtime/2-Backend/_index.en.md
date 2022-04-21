@@ -80,7 +80,7 @@ Lambda functions that use arm64 architecture (AWS Graviton2 processor) can achie
 
 10. Complete the functions to `saveToDDB` and `iotPublish` which are commented as `TO DO`. *Ask for hints if you get stuck*
 
-![Module 2 - Paste code](../images/2-realtime-lambda3.png)
+![Module 2 - Paste code](../images/2-realtime-lambda3a.png)
 
 11. Above the *Code source* panel, select **Deploy** to save the changes and deploy the function.
 
